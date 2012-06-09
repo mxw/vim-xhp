@@ -20,13 +20,13 @@ endif
 
 " Highlight XHP regions as XML; recursively match.
 syn region  xhpRegion contains=@XMLSyntax,xhpRegion,xhpContent
-	\ start=+<\z([^ /!?<>"']\+\)+
-	\ skip=+<!--\_.\{-}-->+
-	\ end=+</\z1\_\s\{-}>+
-	\ end=+/>+
+  \ start=+<\z([^ /!?<>"']\+\)+
+  \ skip=+<!--\_.\{-}-->+
+  \ end=+</\z1\_\s\{-}>+
+  \ end=+/>+
   \ contained
-	\ keepend
-	\ extend
+  \ keepend
+  \ extend
 
 " XHP attribute-safe PHP delimiters (i.e., not {}).
 syn region  xhpParent contains=@phpClInside
