@@ -19,7 +19,7 @@ if exists('s:current_syntax')
 endif
 
 " Highlight XHP regions as XML; recursively match.
-syn region  xhpRegion contains=@XMLSyntax,xhpRegion
+syn region  xhpRegion contains=@XMLSyntax,xhpRegion,xhpContent
 	\ start=+<\z([^ /!?<>"']\+\)+
 	\ skip=+<!--\_.\{-}-->+
 	\ end=+</\z1\_\s\{-}>+
@@ -42,8 +42,9 @@ syn region  xhpParent contains=@phpClInside
   \ contained
   \ transparent
 
-" XHP attributes should color as PHP.
+" XHP attributes and all tag content in {}'s should color as PHP.
 syn region  xmlString contained start=+{+ end=+}+ contains=@phpClConst,xhpParent
+syn region xhpContent contained start=+{+ end=+}+ contains=@phpClConst,xhpParent
 
 " Add xhpRegion to the lowest-level PHP syntax cluster.
 syn cluster phpClConst add=xhpRegion
