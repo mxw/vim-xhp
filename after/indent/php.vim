@@ -43,6 +43,11 @@ fu! GetXhpIndent()
   if ind == -1
     if prevsyn =~ 'xml' || prevsyn =~ 'xhp'
       let ind = XmlIndentGet(v:lnum, 0)
+
+      " Align '/>' with '<' for multiline self-closing tags.
+      if getline(v:lnum) =~? '^\s*\/>\s*;\='
+        let ind = ind - &sw
+      endif
     else
       let ind = indent(v:lnum)
     endif
