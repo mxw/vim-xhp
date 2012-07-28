@@ -19,7 +19,7 @@ if exists('s:current_syntax')
 endif
 
 " Highlight XHP regions as XML; recursively match.
-syn region  xhpRegion contains=@XMLSyntax,xhpRegion,xhpContent
+syn region xhpRegion contains=@XMLSyntax,xhpRegion
   \ start=+<\z([a-zA-Z0-9:\-]\+\)+
   \ skip=+<!--\_.\{-}-->+
   \ end=+</\z1\_\s\{-}>+
@@ -29,22 +29,11 @@ syn region  xhpRegion contains=@XMLSyntax,xhpRegion,xhpContent
   \ extend
 
 " XHP attribute-safe PHP delimiters (i.e., not {}).
-syn region  xhpParent contains=@phpClInside
-  \ matchgroup=Delimiter
-  \ start="("
-  \ end=")"
-  \ contained
-  \ transparent
-syn region  xhpParent contains=@phpClInside
-  \ matchgroup=Delimiter
-  \ start="\["
-  \ end="\]"
-  \ contained
-  \ transparent
+syn match xhpParent +[([\])]+ contained
+hi def link xhpParent Delimiter
 
 " XHP attributes and all tag content in {}'s should color as PHP.
-syn region  xmlString contained start=+{+ end=+}+ contains=@phpClConst,xhpParent
-syn region xhpContent contained start=+{+ end=+}+ contains=@phpClConst,xhpParent
+syn region xmlString contained start=+{+ end=+}+ contains=@phpClConst,xhpParent
 
 " Add xhpRegion to the lowest-level PHP syntax cluster.
 syn cluster phpClConst add=xhpRegion
