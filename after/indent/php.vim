@@ -27,26 +27,35 @@ setlocal indentkeys+=<>>,<<>,/,{,}
 fu! GetXhpIndent()
   let ind = GetPhpIndent()
 
-  " Find the syntax at the end of the previous line.
-  let lnum = prevnonblank(v:lnum - 1)
-  let prevsyn = synIDattr(synID(lnum, strlen(getline(lnum)) - 1, 1), 'name')
-
-  " Check for a PHP syntax error.  If the previous line was XHP, assume we are
-  " also in XHP and use XML indenting.  If it wasn't, stick with our existing
-  " PHP indentation.  This ensures that hitting <Enter> after the following:
-  "
-  "   $foo =
-  "     <my:element
-  "
-  " does not reset the indentation of the second line to match the first,
-  " while still preserving normal error behavior.
+  " Check for a PHP syntax error.
   if ind == -1
-    if prevsyn =~ 'xml' || prevsyn =~ 'xhp'
+    " Get all syntax items for the end of the previous line.
+    let lnum = prevnonblank(v:lnum - 1)
+    let col = strlen(getline(lnum)) - 1
+    let prevsyn = map(synstack(lnum, col), 'synIDattr(v:val, "name")')
+
+    " Keep only the XHP and XML items.
+    let xhpsyn = filter(prevsyn, 'v:val =~ "xml" || v:val =~ "xhp"')
+
+    " If the previous line ended with XHP, assume we are still in XHP and use
+    " XML indenting; otherwise, stick with the existing PHP indentation.  This
+    " ensures that hitting an indentkey after the following:
+    "
+    "   $foo =
+    "     <my:element
+    "
+    " does not reset the indentation of the second line to match the first.
+    if !empty(xhpsyn)
       let ind = XmlIndentGet(v:lnum, 0)
 
       " Align '/>' with '<' for multiline self-closing tags.
       if getline(v:lnum) =~? '^\s*\/>\s*;\='
         let ind = ind - &sw
+      endif
+
+      " Then correct the indentation of the line following '/>'.
+      if getline(v:lnum - 1) =~? '^\s*\/>\s*;\='
+        let ind = ind + &sw
       endif
     else
       let ind = indent(v:lnum)
