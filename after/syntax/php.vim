@@ -2,7 +2,7 @@
 " Vim syntax file
 "
 " Language: XHP (PHP)
-" Author: Max Wang <mxawng@gmail.com>
+" Maintainer: Max Wang <mxawng@gmail.com>
 "
 " CREDITS: Inspired by Facebook.
 "
