@@ -1,6 +1,9 @@
 vim-xhp
 =======
 
+Syntax highlighting and indenting for XHP.  XHP is a PHP extension developed by
+Facebook which augments PHP with inline XML documents and custom XML elements.
+
 Installation
 ------------
 
