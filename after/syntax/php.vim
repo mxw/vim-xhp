@@ -39,5 +39,7 @@ syn region xhpContent contained start=+{+ end=+}+ contains=@phpClConst,xhpParent
 " Add xhpRegion to the lowest-level PHP syntax cluster.
 syn cluster phpClConst add=xhpRegion
 
-" Highlight yield as return.
+" Highlight HPHP extension keywords.
+syn keyword phpType async contained
+syn keyword phpStatement await contained
 syn keyword phpStatement yield contained
