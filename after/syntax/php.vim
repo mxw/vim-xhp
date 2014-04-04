@@ -1,12 +1,8 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim syntax file
-"
-" Language: XHP (PHP)
-" Maintainer: Max Wang <mxawng@gmail.com>
-"
-" CREDITS: Inspired by Facebook.
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Language:     XHP (PHP)
+" Maintainer:   Max Wang <mxawng@gmail.com>
+" URL:          https://github.com/mxw/vim-xhp
+" Last Change:  April 4, 2014
 
 " Prologue; load in XML syntax.
 if exists('b:current_syntax')
@@ -36,10 +32,13 @@ hi def link xhpParent Delimiter
 syn region  xmlString contained start=+{+ end=+}+ contains=@phpClConst,xhpParent
 syn region xhpContent contained start=+{+ end=+}+ contains=@phpClConst,xhpParent
 
-" Add xhpRegion to the lowest-level PHP syntax cluster.
-syn cluster phpClConst add=xhpRegion
+" XHP keywords.
+syn keyword xhpType enum contained
+syn keyword xhpDeclare attribute category children contained
+syn match xhpDecorator +@required+ contained
 
-" Highlight HPHP extension keywords.
-syn keyword phpType async contained
-syn keyword phpStatement await contained
-syn keyword phpStatement yield contained
+hi def link xhpType Type
+hi def link xhpDeclare Structure
+
+" Add xhpRegion and keywords to the lowest-level PHP syntax cluster.
+syn cluster phpClConst add=xhpRegion,xhpType,xhpDeclare,xhpDecorator

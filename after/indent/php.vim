@@ -1,10 +1,8 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim indent file
-"
-" Language: XHP (PHP)
-" Maintainer: Max Wang <mxawng@gmail.com>
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Language:     XHP (PHP)
+" Maintainer:   Max Wang <mxawng@gmail.com>
+" URL:          https://github.com/mxw/vim-xhp
+" Last Change:  April 4, 2014
 
 " Prologue; load in XML indentation.
 if exists('b:did_indent')
