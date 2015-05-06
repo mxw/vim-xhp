@@ -16,7 +16,7 @@ endif
 
 " Highlight XHP regions as XML; recursively match.
 syn region  xhpRegion contains=@XMLSyntax,xhpRegion,xhpContent
-  \ start=+<\@<!<\z([a-zA-Z0-9:\-]\+\)+
+  \ start=+<\@<!<\z([a-zA-Z0-9:\-_]\+\)+
   \ skip=+<!--\_.\{-}-->+
   \ end=+</\z1\_\s\{-}>+
   \ end=+/>+
